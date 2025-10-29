@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Excel風テーブル（固定列を増やす）</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/handsontable@14.0.0/dist/handsontable.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/handsontable@14.0.0/dist/handsontable.min.js"></script>
+  <style>
+    /* ▼ 列ヘッダー縦書き + 中央寄せ */
+    .handsontable thead th {
+      writing-mode: vertical-rl;
+      text-orientation: upright;
+      white-space: nowrap;
+      height: 120px;
+      width: 40px;
+      text-align: center;
+      vertical-align: middle;
+    }
+
+    /* ▼ セル共通設定：改行なし + 中央寄せ */
+    .handsontable td {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      text-align: center;
+      vertical-align: middle;
+    }
+
+    /* ▼ 各列の背景色指定 */
+    .price-col    { background-color: #fff7d1; }  /* 価格列：黄色 */
+    .stock-col    { background-color: #e0f7ff; }  /* 在庫列：水色 */
+    .category-col { background-color: #eafbea; }  /* カテゴリ列：薄緑 */
+    .note-col     { background-color: #f8eaff; }  /* 備考列：薄紫 */
+  </style>
+</head>
+<body>
+  <div id="example"></div>
+  <script>
+    const container = document.querySelector('#example');
+    const hot = new Handsontable(container, {
+      data: [
+        ['りんご', 120, 30, '果物', '人気商品'],
+        ['バナナ', 80, 50, '果物', '定番'],
+        ['ぶどう', 200, 15, '果物', '季節限定'],
+        ['メロン', 500, 5, '果物', '高級'],
+        ['きゅうり', 60, 40, '野菜', '安定供給'],
+      ],
+      colHeaders: ['商品名', '価格', '在庫', 'カテゴリ', '備考'], // 5列分
+      rowHeaders: false,
+      contextMenu: true,
+      minRows: 10,
+      licenseKey: 'non-commercial-and-evaluation',
+      columns: [
+        {},                        // 商品名（デフォルト）
+        { className: 'price-col' },    // 価格（黄色）
+        { className: 'stock-col' },    // 在庫（水色）
+        { className: 'category-col' }, // カテゴリ（薄緑）
+        { className: 'note-col' }      // 備考（薄紫）
+      ]
+    });
+  </script>
+</body>
+</html>
